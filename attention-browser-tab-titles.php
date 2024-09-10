@@ -13,7 +13,7 @@
  * @package           Attention_Browser_Tab_Titles
  *
  * @wordpress-plugin
- * Plugin Name:       Attention-Grabbing Browser Tab Titles for WordPress
+ * Plugin Name:       Attention-Grabbing Browser Tab Titles
  * Plugin URI:        https://https://github.com/thechetanvaghela
  * Description:       Enhance your site's visibility with attention-grabbing browser tab titles. This plugin changes your browser tab's title to ensure it stands out among multiple tabs, making it easier for users to notice and return to your site.
  * Version:           1.0.0

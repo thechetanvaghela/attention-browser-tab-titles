@@ -109,7 +109,7 @@ class Attention_Browser_Tab_Titles_Public {
 			if (is_array($titles_only) && !empty($titles_only)) 
 			{	
 				// Encode the array as JSON
-				$json_titles = json_encode($titles_only);					
+				$json_titles = wp_json_encode($titles_only);					
 				$interval =  !empty(get_option('abtt_title_time')) ? get_option('abtt_title_time') * 1000 : 2000;
 				$abtt_enable_homepage =  !empty(get_option('abtt_enable_homepage')) ? get_option('abtt_enable_homepage')  : false;
 				
@@ -132,7 +132,7 @@ function attb_wp_head_output_script($json_titles, $interval)
 	<script>
 	document.addEventListener('DOMContentLoaded', function() {
 		var originalTitle = document.title;
-		var attentionTitles = <?php echo $json_titles; ?>;
+		var attentionTitles = <?php echo wp_kses_post($json_titles); ?>;
 		var index = 0;
 		var interval;
 
@@ -141,7 +141,7 @@ function attb_wp_head_output_script($json_titles, $interval)
 			index = (index + 1) % attentionTitles.length;
 		}
 		window.addEventListener('blur', function() {
-			interval = setInterval(changeTitle, <?php echo $interval; ?>);
+			interval = setInterval(changeTitle, <?php echo esc_js($interval); ?>);
 		});
 
 		window.addEventListener('focus', function() {
