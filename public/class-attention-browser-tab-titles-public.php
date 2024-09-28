@@ -98,57 +98,50 @@ class Attention_Browser_Tab_Titles_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/attention-browser-tab-titles-public.js', array( 'jquery' ), $this->version, false );
 
-	}
-
-	public function abtt_wp_head_callback()
-	{
-		$tab_title_widget = get_option('abtt_enable_feature');
+		$tab_title_widget = get_option('attention_browser_enable_feature');
 		if (!empty($tab_title_widget)) 
 		{
-			$titles_only = get_option('abtt_title_texts', ['']);
+			$titles_only = get_option('attention_browser_title_texts', ['']);
 			if (is_array($titles_only) && !empty($titles_only)) 
 			{	
 				// Encode the array as JSON
 				$json_titles = wp_json_encode($titles_only);					
-				$interval =  !empty(get_option('abtt_title_time')) ? get_option('abtt_title_time') * 1000 : 2000;
-				$abtt_enable_homepage =  !empty(get_option('abtt_enable_homepage')) ? get_option('abtt_enable_homepage')  : false;
+				$interval =  !empty(get_option('attention_browser_title_time')) ? get_option('attention_browser_title_time') * 1000 : 2000;
+				$attention_browser_enable_homepage =  !empty(get_option('attention_browser_enable_homepage')) ? get_option('attention_browser_enable_homepage')  : false;
 				
-				if ($abtt_enable_homepage) {
+					$script_added = "
+					document.addEventListener('DOMContentLoaded', function() {
+						var originalTitle = document.title;
+						var attentionTitles = " . wp_json_encode($titles_only) . ";
+						var index = 0;
+						var interval;
+
+						function changeTitle() {
+							document.title = attentionTitles[index];
+							index = (index + 1) % attentionTitles.length;
+						}
+						window.addEventListener('blur', function() {
+							interval = setInterval(changeTitle, " . esc_js($interval) . ");
+						});
+
+						window.addEventListener('focus', function() {
+							clearInterval(interval);
+							document.title = originalTitle;
+						});
+					});";
+				
+				if ($attention_browser_enable_homepage) {
 					if (is_front_page() || is_home()) {
-						attb_wp_head_output_script($json_titles, $interval);
+						wp_add_inline_script( $this->plugin_name, $script_added);
 					}
-				} else {
-					attb_wp_head_output_script($json_titles, $interval);
 				}
+				else
+				{
+					wp_add_inline_script( $this->plugin_name, $script_added );
+				}
+				
 			}
 		}
+
 	}
-
-}
-
-function attb_wp_head_output_script($json_titles, $interval) 
-{
-	?>
-	<script>
-	document.addEventListener('DOMContentLoaded', function() {
-		var originalTitle = document.title;
-		var attentionTitles = <?php echo wp_kses_post($json_titles); ?>;
-		var index = 0;
-		var interval;
-
-		function changeTitle() {
-			document.title = attentionTitles[index];
-			index = (index + 1) % attentionTitles.length;
-		}
-		window.addEventListener('blur', function() {
-			interval = setInterval(changeTitle, <?php echo esc_js($interval); ?>);
-		});
-
-		window.addEventListener('focus', function() {
-			clearInterval(interval);
-			document.title = originalTitle;
-		});
-	});
-	</script>
-	<?php
 }

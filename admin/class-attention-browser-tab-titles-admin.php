@@ -100,39 +100,39 @@ class Attention_Browser_Tab_Titles_Admin {
 
 	}
 
-	public function abtt_register_admin_page() {
+	public function attention_browser_register_admin_page() {
 		add_menu_page(
 			'Attention Browser Tab Title', // Page Title
 			'Tab Title Settings', // Menu Title
 			'manage_options', // Capability
 			'abtt-settings', // Menu Slug
-			array($this, 'abtt_admin_page'), // Callback function
+			array($this, 'attention_browser_admin_page'), // Callback function
 			'dashicons-heading', // Icon
 			20 // Position
 		);
 	}
 
-	public function abtt_register_admin_init()
+	public function attention_browser_register_admin_init()
 	{
-		register_setting('abtt_settings_group', 'abtt_enable_feature');
-		register_setting('abtt_settings_group', 'abtt_title_texts', ['sanitize_callback' => 'abtt_sanitize_title_texts']);
-		register_setting('abtt_settings_group', 'abtt_title_time');
-		register_setting('abtt_settings_group', 'abtt_enable_homepage');
+		register_setting('attention_browser_settings_group', 'attention_browser_enable_feature');
+		register_setting('attention_browser_settings_group', 'attention_browser_title_texts', ['sanitize_callback' => 'attention_browser_sanitize_title_texts']);
+		register_setting('attention_browser_settings_group', 'attention_browser_title_time');
+		register_setting('attention_browser_settings_group', 'attention_browser_enable_homepage');
 	}
 
-	public function abtt_admin_page() {
+	public function attention_browser_admin_page() {
 		?>
-		<div id="abtt-settings-page">
+		<div id="attention_browser-settings-page">
 			<div class="wrap">
 				<h1>Attention Browser Tab Title Settings</h1>
 				<form method="post" action="options.php">
-					<?php settings_fields('abtt_settings_group'); ?>
-					<?php do_settings_sections('abtt_settings_group'); ?>
+					<?php settings_fields('attention_browser_settings_group'); ?>
+					<?php do_settings_sections('attention_browser_settings_group'); ?>
 					<table class="form-table">
 						<tr valign="top">
 							<th scope="row">Enable Feature</th>
 							<td>
-								<input type="checkbox" id="abtt_enable_feature" name="abtt_enable_feature" value="1" <?php checked(1, get_option('abtt_enable_feature'), true); ?> />
+								<input type="checkbox" id="attention_browser_enable_feature" name="attention_browser_enable_feature" value="1" <?php checked(1, get_option('attention_browser_enable_feature'), true); ?> />
 							</td>
 						</tr>
 
@@ -141,12 +141,12 @@ class Attention_Browser_Tab_Titles_Admin {
 							<td>
 								<div id="title-texts-container">
 									<?php 
-									$title_texts = get_option('abtt_title_texts', ['']);
+									$title_texts = get_option('attention_browser_title_texts', ['']);
 									if (is_array($title_texts)) {
 										foreach ($title_texts as $text) {
 											?>
 											<div class="title-text-field">
-												<input type="text" name="abtt_title_texts[]" value="<?php echo esc_attr($text); ?>" />
+												<input type="text" name="attention_browser_title_texts[]" value="<?php echo esc_attr($text); ?>" />
 												<button type="button" class="button remove-title-text">Remove</button>
 											</div>
 											<?php
@@ -161,14 +161,14 @@ class Attention_Browser_Tab_Titles_Admin {
 						<tr valign="top" class="dependent-fields">
 							<th scope="row">Title Change Time (in seconds)</th>
 							<td>
-								<input type="number" name="abtt_title_time" value="<?php echo esc_attr(get_option('abtt_title_time', 5)); ?>" min="1" />
+								<input type="number" name="attention_browser_title_time" value="<?php echo esc_attr(get_option('attention_browser_title_time', 5)); ?>" min="1" />
 							</td>
 						</tr>
 
 						<tr valign="top" class="dependent-fields">
 							<th scope="row">Enable Only on Homepage</th>
 							<td>
-								<input type="checkbox" name="abtt_enable_homepage" value="1" <?php checked(1, get_option('abtt_enable_homepage'), true); ?> />
+								<input type="checkbox" name="attention_browser_enable_homepage" value="1" <?php checked(1, get_option('attention_browser_enable_homepage'), true); ?> />
 							</td>
 						</tr>
 					</table>
@@ -183,7 +183,7 @@ class Attention_Browser_Tab_Titles_Admin {
 }
 
 
-function abtt_sanitize_title_texts($input) {
+function attention_browser_sanitize_title_texts($input) {
 	if (is_array($input)) {
 		// Remove empty values
 		$input = array_filter($input, function($value) {

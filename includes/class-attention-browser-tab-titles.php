@@ -156,8 +156,8 @@ class Attention_Browser_Tab_Titles {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'abtt_register_admin_init' );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'abtt_register_admin_page' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'attention_browser_register_admin_init' );
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'attention_browser_register_admin_page' );
 
 	}
 
@@ -174,7 +174,7 @@ class Attention_Browser_Tab_Titles {
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		$this->loader->add_action( 'wp_head', $plugin_public, 'abtt_wp_head_callback' );
+		//$this->loader->add_action( 'wp_head', $plugin_public, 'attention_browser_wp_head_callback' );
 
 	}
 

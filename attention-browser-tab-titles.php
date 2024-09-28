@@ -41,7 +41,7 @@ define( 'ATTENTION_BROWSER_TAB_TITLES_VERSION', '1.0.0' );
  * The code that runs during plugin activation.
  * This action is documented in includes/class-attention-browser-tab-titles-activator.php
  */
-function activate_attention_browser_tab_titles() {
+function attention_browser_activate_tab_titles() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-attention-browser-tab-titles-activator.php';
 	Attention_Browser_Tab_Titles_Activator::activate();
 }
@@ -50,13 +50,13 @@ function activate_attention_browser_tab_titles() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-attention-browser-tab-titles-deactivator.php
  */
-function deactivate_attention_browser_tab_titles() {
+function attention_browser_deactivate_tab_titles() {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/class-attention-browser-tab-titles-deactivator.php';
 	Attention_Browser_Tab_Titles_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_attention_browser_tab_titles' );
-register_deactivation_hook( __FILE__, 'deactivate_attention_browser_tab_titles' );
+register_activation_hook( __FILE__, 'attention_browser_activate_tab_titles' );
+register_deactivation_hook( __FILE__, 'attention_browser_deactivate_tab_titles' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -73,10 +73,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-attention-browser-tab-titl
  *
  * @since    1.0.0
  */
-function run_attention_browser_tab_titles() {
+function attention_browser_run_tab_titles() {
 
 	$plugin = new Attention_Browser_Tab_Titles();
 	$plugin->run();
 
 }
-run_attention_browser_tab_titles();
+attention_browser_run_tab_titles();
