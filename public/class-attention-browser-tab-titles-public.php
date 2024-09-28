@@ -73,7 +73,7 @@ class Attention_Browser_Tab_Titles_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/attention-browser-tab-titles-public.css', array(), $this->version, 'all' );
+		//wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/attention-browser-tab-titles-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -95,9 +95,10 @@ class Attention_Browser_Tab_Titles_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/attention-browser-tab-titles-public.js', array( 'jquery' ), $this->version, false );
-
+		if(!is_admin())
+		{
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/attention-browser-tab-titles-public.js', array( 'jquery' ), $this->version, array('in_footer' => true, 'strategy'  => 'defer') );
+		}
 		$tab_title_widget = get_option('attention_browser_enable_feature');
 		if (!empty($tab_title_widget)) 
 		{
